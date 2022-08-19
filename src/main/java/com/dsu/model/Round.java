@@ -1,9 +1,10 @@
 package com.dsu.model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Round {
-    private static List<Round> rounds;
+    private static List<Round> rounds = new ArraysList<>();
     private int idRound;
     private int idPlayer1;
     private int idPlayer2;

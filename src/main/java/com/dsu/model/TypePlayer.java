@@ -1,9 +1,10 @@
 package com.dsu.model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class TypePlayer {
-    private static List<TypePlayer> typesPlayers;
+    private static List<TypePlayer> typesPlayers = new ArrayList<>();
     private int idTypePlayer;
     private int name;
 
