@@ -8,7 +8,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/players")
 public class ListOfPlayersController {
-    
+
     @PostMapping("/")
     public Player createPlayer(Player player) {
         Player.insertPlayer(player);
