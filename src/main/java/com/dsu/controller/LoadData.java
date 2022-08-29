@@ -16,20 +16,21 @@ public class LoadData {
     CommandLineRunner initDatabase() {
 
         return args -> {
+            TypePlayer Human = TypePlayer.insertTypePlayer(new TypePlayer("Human"));
+            TypePlayer Bot = TypePlayer.insertTypePlayer(new TypePlayer("Bot"));
 
-            Player.insertPlayer(new Player("Mario", 1));
-            Player.insertPlayer(new Player("Antonio", 1));
-            Player.insertPlayer(new Player("Manuel", 2));
-            Player.insertPlayer(new Player("Gabi", 2));
+            Player.insertPlayer(new Player("Mario", Human));
+            Player.insertPlayer(new Player("Antonio", Human));
+            Player.insertPlayer(new Player("Manuel", Bot));
+            Player.insertPlayer(new Player("Gabi", Bot));
 
-            TypePlayer.insertTypePlayer(new TypePlayer("Human"));
-            TypePlayer.insertTypePlayer(new TypePlayer("Bot"));
 
             Game.insertGame(new Game("TicTacToe"));
             Game.insertGame(new Game("HangMan"));
 
             Piece.insertPiece(new Piece("X"));
             Piece.insertPiece(new Piece("O"));
+            Piece.insertPiece(new Piece("-"));
         };
 
     }
