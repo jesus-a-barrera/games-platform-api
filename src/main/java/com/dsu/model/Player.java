@@ -7,14 +7,14 @@ public class Player {
     private static List<Player> players = new ArrayList<>();
     private int idPlayer;
     private String name;
-    private int idTypePlayer;
+    private TypePlayer typePlayer;
 
     public Player() {
     }
 
-    public Player(String name, int idTypePlayer) {
+    public Player(String name, TypePlayer typePlayer) {
         this.name = name;
-        this.idTypePlayer = idTypePlayer;
+        this.typePlayer = typePlayer;
     }
 
     public int getIdPlayer() {
@@ -33,12 +33,12 @@ public class Player {
         this.name = name;
     }
 
-    public int getIdTypePlayer() {
-        return idTypePlayer;
+    public TypePlayer getTypePlayer() {
+        return typePlayer;
     }
 
-    public void setIdTypePlayer(int idTypePlayer) {
-        this.idTypePlayer = idTypePlayer;
+    public void setTypePlayer(TypePlayer typePlayer) {
+        this.typePlayer = typePlayer;
     }
 
     public static Player insertPlayer(Player player) {
@@ -63,7 +63,7 @@ public class Player {
             if (foundPlayer.getIdPlayer() == player.getIdPlayer()) {
                 foundPlayer.setIdPlayer(player.getIdPlayer());
                 foundPlayer.setName(player.getName());
-                foundPlayer.setIdTypePlayer(player.getIdTypePlayer());
+                foundPlayer.setTypePlayer(player.getTypePlayer());
                 return foundPlayer;
             }
         }

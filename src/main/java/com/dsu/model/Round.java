@@ -7,20 +7,21 @@ public class Round {
 
     private static List<Round> rounds = new ArrayList<Round>();
     private int idRound;
-    private int idPlayer1;
-    private int idPlayer2;
-    private int idWinner;
-    private int idGame;
+
+    private Player player1;
+    private Player player2;
+    private Player Winner;
+    private Game game;
     private boolean isFinished;
 
     public Round() {
     }
 
-    public Round(int idPlayer1, int idPlayer2, int idWinner, int idGame, boolean isFinished) {
-        this.idPlayer1 = idPlayer1;
-        this.idPlayer2 = idPlayer2;
-        this.idWinner = idWinner;
-        this.idGame = idGame;
+    public Round(Player Player1, Player Player2, Player winner, Game game, boolean isFinished) {
+        this.player1 = Player1;
+        this.player2 = Player2;
+        this.Winner = winner;
+        this.game = game;
         this.isFinished = isFinished;
     }
 
@@ -33,36 +34,36 @@ public class Round {
         this.idRound = idRound;
     }
 
-    public int getIdPlayer1() {
-        return idPlayer1;
+    public Player getPlayer1() {
+        return player1;
     }
 
-    public void setIdPlayer1(int idPlayer1) {
-        this.idPlayer1 = idPlayer1;
+    public void setPlayer1(Player player1) {
+        this.player1 = player1;
     }
 
-    public int getIdPlayer2() {
-        return idPlayer2;
+    public Player getPlayer2() {
+        return player2;
     }
 
-    public void setIdPlayer2(int idPlayer2) {
-        this.idPlayer2 = idPlayer2;
+    public void setPlayer2(Player player2) {
+        this.player2 = player2;
     }
 
-    public int getIdWinner() {
-        return idWinner;
+    public Player getWinner() {
+        return Winner;
     }
 
-    public void setIdWinner(int idWinner) {
-        this.idWinner = idWinner;
+    public void setWinner(Player winner) {
+        Winner = winner;
     }
 
-    public int getIdGame() {
-        return idGame;
+    public Game getGame() {
+        return game;
     }
 
-    public void setIdGame(int idGame) {
-        this.idGame = idGame;
+    public void setGame(Game game) {
+        this.game = game;
     }
 
     public boolean isFinished() {
@@ -72,6 +73,7 @@ public class Round {
     public void setFinished(boolean finished) {
         isFinished = finished;
     }
+
 
     public static Round insertRound(Round round) {
         round.setIdRound(rounds.size() + 1);
@@ -94,10 +96,10 @@ public class Round {
         for (Round foundRound : rounds) {
             if (foundRound.getIdRound() == round.getIdRound()) {
                 foundRound.setIdRound(round.getIdRound());
-                foundRound.setIdPlayer1(round.getIdPlayer1());
-                foundRound.setIdPlayer2(round.getIdPlayer2());
-                foundRound.setIdWinner(round.getIdWinner());
-                foundRound.setIdGame(round.getIdGame());
+                foundRound.setPlayer1(round.getPlayer1());
+                foundRound.setPlayer2(round.getPlayer2());
+                foundRound.setWinner(round.getWinner());
+                foundRound.setGame(round.getGame());
                 foundRound.setFinished(round.isFinished());
                 return foundRound;
             }
