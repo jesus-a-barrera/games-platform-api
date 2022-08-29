@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Piece {
-
     private int idPiece;
     private String name;
-
     private static List<Piece> pieces = new ArrayList<Piece>();
+
+    public Piece() {
+    }
+
+    public Piece(String name) {
+        this.name = name;
+    }
 
     public int getIdPiece() {
         return idPiece;
@@ -31,8 +36,6 @@ public class Piece {
         return piece;
     }
 
-
-
     public static Piece selectPiece(int id) {
         for (Piece piece : pieces)
             if (piece.getIdPiece() == id)
@@ -44,9 +47,9 @@ public class Piece {
         return pieces;
     }
 
-    public static Piece updatePiece(int id, Piece piece) {
+    public static Piece updatePiece( Piece piece) {
         for (Piece foundPiece : pieces) {
-            if (foundPiece.getIdPiece() == id) {
+            if (foundPiece.getIdPiece() == piece.getIdPiece()) {
                 foundPiece.setIdPiece(piece.getIdPiece());
                 foundPiece.setName(piece.getName());
                 return foundPiece;
@@ -56,9 +59,9 @@ public class Piece {
         return piece;
     }
 
-    public static void deletePiece(Piece piece) {
+    public static void deletePiece(int idPiece) {
         for (Piece foundPiece : pieces) {
-            if (foundPiece.getIdPiece() == piece.getIdPiece())
+            if (foundPiece.getIdPiece() == idPiece)
                 pieces.remove(foundPiece);
         }
     }

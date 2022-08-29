@@ -10,6 +10,16 @@ public class Letter {
     private int position;
     private boolean isShown;
 
+    public Letter() {
+    }
+
+    public Letter(int idRound, char character, int position, boolean isShown) {
+        this.idRound = idRound;
+        this.character = character;
+        this.position = position;
+        this.isShown = isShown;
+    }
+
     public int getIdRound() {
         return idRound;
     }
@@ -48,10 +58,14 @@ public class Letter {
         return letter;
     }
 
-    public static Letter selectPositionLetter(int position) {
-        for (Letter letter : letters)
-            if (letter.getPosition() == position)
+    public static Letter selectLetter(int idRound, char character, int position) {
+        String PK = String.valueOf(idRound + character + position);
+        for (Letter letter : letters) {
+            String foundPK = String.valueOf(letter.getIdRound() + letter.getCharacter() + letter.getPosition());
+            if (PK.equals(foundPK)) {
                 return letter;
+            }
+        }
         return null;
     }
 
@@ -59,9 +73,11 @@ public class Letter {
         return letters;
     }
 
-    public static Letter updateLetter(int idRound, Letter letter) {
+    public static Letter updateLetter(Letter letter) {
+        String PK = String.valueOf(letter.getIdRound() + letter.getCharacter() + letter.getPosition());
         for (Letter fLetter : letters) {
-            if (fLetter.getIdRound() == idRound) {
+            String foundPK = String.valueOf(fLetter.getIdRound() + fLetter.getCharacter() + fLetter.getPosition());
+            if (PK.equals(foundPK)) {
                 fLetter.setIdRound(letter.getIdRound());
                 fLetter.setCharacter(letter.getCharacter());
                 fLetter.setPosition(letter.getPosition());
@@ -73,11 +89,12 @@ public class Letter {
         return letter;
     }
 
-    public static void deleteLetter(Letter letter) {
+    public static void deleteLetter(int idRound, char character, int position) {
+        String PK = String.valueOf(idRound + character + position);
         for (Letter fLetter : letters) {
-            if (fLetter.getPosition() == letter.getPosition())
+            String foundPK = String.valueOf(fLetter.getIdRound() + fLetter.getCharacter() + fLetter.getPosition());
+            if (PK.equals(foundPK))
                 letters.remove(fLetter);
         }
     }
-
 }

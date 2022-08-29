@@ -4,13 +4,26 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Round {
-    private static List<Round> rounds = new ArraysList<>();
+
+    private static List<Round> rounds = new ArrayList<Round>();
     private int idRound;
     private int idPlayer1;
     private int idPlayer2;
     private int idWinner;
     private int idGame;
     private boolean isFinished;
+
+    public Round() {
+    }
+
+    public Round(int idPlayer1, int idPlayer2, int idWinner, int idGame, boolean isFinished) {
+        this.idPlayer1 = idPlayer1;
+        this.idPlayer2 = idPlayer2;
+        this.idWinner = idWinner;
+        this.idGame = idGame;
+        this.isFinished = isFinished;
+    }
+
 
     public int getIdRound() {
         return idRound;
@@ -61,6 +74,7 @@ public class Round {
     }
 
     public static Round insertRound(Round round) {
+        round.setIdRound(rounds.size() + 1);
         rounds.add(round);
         return round;
     }
@@ -76,9 +90,9 @@ public class Round {
         return rounds;
     }
 
-    public static Round updateRound(int id, Round round) {
+    public static Round updateRound(Round round) {
         for (Round foundRound : rounds) {
-            if (foundRound.getIdRound() == id) {
+            if (foundRound.getIdRound() == round.getIdRound()) {
                 foundRound.setIdRound(round.getIdRound());
                 foundRound.setIdPlayer1(round.getIdPlayer1());
                 foundRound.setIdPlayer2(round.getIdPlayer2());
@@ -92,9 +106,9 @@ public class Round {
         return round;
     }
 
-    public static void deleteRound(Round round) {
+    public static void deleteRound(int IdRound) {
         for (Round foundRound : rounds) {
-            if (foundRound.getIdRound() == round.getIdRound())
+            if (foundRound.getIdRound() == IdRound)
                 rounds.remove(foundRound);
         }
     }

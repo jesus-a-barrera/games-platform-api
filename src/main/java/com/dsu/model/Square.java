@@ -11,6 +11,16 @@ public class Square {
     private int row;
     private int idPiece;
 
+    public Square() {
+    }
+
+    public Square(int idRound, int column, int row, int idPiece) {
+        this.idRound = idRound;
+        this.column = column;
+        this.row = row;
+        this.idPiece = idPiece;
+    }
+
     public int getIdRound() {
         return idRound;
     }
@@ -49,11 +59,14 @@ public class Square {
     }
 
 
-
-    public static Square selectSquare(int id) {
-        for (Square square : squares)
-            if (square.getIdRound() == id)
+    public static Square selectSquare(int idRound, int column, int row) {
+        String PK = String.valueOf(idRound + column + row);
+        for (Square square : squares) {
+            String foundPK = String.valueOf(square.getIdRound() + square.getColumn() + square.getRow());
+            if (PK.equals(foundPK)) {
                 return square;
+            }
+        }
         return null;
     }
 
@@ -61,9 +74,11 @@ public class Square {
         return squares;
     }
 
-    public static Square updateSquare(int id, Square square) {
+    public static Square updateSquare(Square square) {
+        String PK = String.valueOf(square.getIdRound() + square.getColumn() + square.getRow());
         for (Square foundSquare : squares) {
-            if (foundSquare.getIdRound() == id) {
+            String foundPK = String.valueOf(foundSquare.getIdRound() + foundSquare.getColumn() + foundSquare.getRow());
+            if (PK.equals(foundPK)) {
                 foundSquare.setIdRound(square.getIdRound());
                 foundSquare.setColumn(square.getColumn());
                 foundSquare.setRow(square.getRow());
@@ -75,11 +90,13 @@ public class Square {
         return square;
     }
 
-    public static void deleteSquare(Square square) {
+    public static void deleteSquare(int idRound, int column, int row) {
+        String PK = String.valueOf(idRound + column + row);
         for (Square foundSquare : squares) {
-            if (foundSquare.getIdRound() == square.getIdRound())
+            String foundPK = String.valueOf(foundSquare.getIdRound() + foundSquare.getColumn() + foundSquare.getRow());
+            if (PK.equals(foundPK)) {
                 squares.remove(foundSquare);
+            }
         }
     }
-
 }

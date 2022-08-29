@@ -6,7 +6,14 @@ import java.util.ArrayList;
 public class TypePlayer {
     private static List<TypePlayer> typesPlayers = new ArrayList<>();
     private int idTypePlayer;
-    private int name;
+    private String name;
+
+    public TypePlayer() {
+    }
+
+    public TypePlayer(String name) {
+        this.name = name;
+    }
 
     public int getIdTypePlayer() {
         return idTypePlayer;
@@ -16,15 +23,16 @@ public class TypePlayer {
         this.idTypePlayer = idTypePlayer;
     }
 
-    public int getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(int name) {
+    public void setName(String name) {
         this.name = name;
     }
 
     public static TypePlayer insertTypePlayer(TypePlayer typePlayer) {
+        typePlayer.setIdTypePlayer(typesPlayers.size() + 1);
         typesPlayers.add(typePlayer);
         return typePlayer;
     }
@@ -52,9 +60,9 @@ public class TypePlayer {
         return typePlayer;
     }
 
-    public static void deleteTypePlayer(TypePlayer typePlayer) {
+    public static void deleteTypePlayer(int idTypePlayer) {
         for (TypePlayer foundTypePlayer : typesPlayers) {
-            if (foundTypePlayer.getIdTypePlayer() == typePlayer.getIdTypePlayer())
+            if (foundTypePlayer.getIdTypePlayer() == idTypePlayer)
                 typesPlayers.remove(foundTypePlayer);
         }
     }

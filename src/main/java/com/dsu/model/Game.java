@@ -4,9 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private static List<Game> games =new ArrayList<Game>();
+    private static List<Game> games = new ArrayList<Game>();
     private int idGame;
     private String game;
+
+    public Game() {
+    }
+
+    public Game(String game) {
+        this.game = game;
+    }
 
     public int getIdGame() {
         return idGame;
@@ -26,6 +33,7 @@ public class Game {
 
 
     public static Game insertGame(Game game) {
+        game.setIdGame(games.size() + 1);
         games.add(game);
         return game;
     }
@@ -41,9 +49,9 @@ public class Game {
         return games;
     }
 
-    public static Game updateGame(int id, Game game) {
+    public static Game updateGame( Game game) {
         for (Game fGame : games) {
-            if (fGame.getIdGame() == id) {
+            if (fGame.getIdGame() == game.getIdGame()) {
                 fGame.setIdGame(game.getIdGame());
                 fGame.setGame(game.getGame());
                 return fGame;
@@ -53,9 +61,9 @@ public class Game {
         return game;
     }
 
-    public static void deleteGame(Game game) {
+    public static void deleteGame(int IdGame) {
         for (Game fGame : games) {
-            if (fGame.getIdGame() == game.getIdGame())
+            if (fGame.getIdGame() == IdGame)
                 games.remove(fGame);
         }
     }

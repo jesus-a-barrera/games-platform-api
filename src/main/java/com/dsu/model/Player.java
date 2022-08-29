@@ -9,6 +9,14 @@ public class Player {
     private String name;
     private int idTypePlayer;
 
+    public Player() {
+    }
+
+    public Player(String name, int idTypePlayer) {
+        this.name = name;
+        this.idTypePlayer = idTypePlayer;
+    }
+
     public int getIdPlayer() {
         return idPlayer;
     }
@@ -34,13 +42,14 @@ public class Player {
     }
 
     public static Player insertPlayer(Player player) {
+        player.setIdPlayer(players.size() + 1);
         players.add(player);
         return player;
     }
 
-    public static Player selectPlayer(int id) {
+    public static Player selectPlayer(int idPlayer) {
         for (Player player : players)
-            if (player.getIdPlayer() == id)
+            if (player.getIdPlayer() == idPlayer)
                 return player;
         return null;
     }
@@ -49,9 +58,9 @@ public class Player {
         return players;
     }
 
-    public static Player updatePlayer(int id, Player player) {
+    public static Player updatePlayer(Player player) {
         for (Player foundPlayer : players) {
-            if (foundPlayer.getIdPlayer() == id) {
+            if (foundPlayer.getIdPlayer() == player.getIdPlayer()) {
                 foundPlayer.setIdPlayer(player.getIdPlayer());
                 foundPlayer.setName(player.getName());
                 foundPlayer.setIdTypePlayer(player.getIdTypePlayer());
@@ -62,9 +71,9 @@ public class Player {
         return player;
     }
 
-    public static void deletePlayer(Player player) {
+    public static void deletePlayer(int idPlayer) {
         for (Player foundPlayer : players) {
-            if (foundPlayer.getIdPlayer() == player.getIdPlayer())
+            if (foundPlayer.getIdPlayer() == idPlayer)
                 players.remove(foundPlayer);
         }
     }
