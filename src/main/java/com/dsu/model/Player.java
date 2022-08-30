@@ -9,6 +9,14 @@ public class Player {
     private String name;
     private TypePlayer typePlayer;
 
+    @Override
+    public String toString() {
+        return "Player{" +
+                "idPlayer=" + idPlayer +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public Player() {
     }
 

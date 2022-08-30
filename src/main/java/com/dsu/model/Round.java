@@ -7,24 +7,25 @@ public class Round {
 
     private static List<Round> rounds = new ArrayList<Round>();
     private int idRound;
-
     private Player player1;
     private Player player2;
     private Player Winner;
     private Game game;
     private boolean isFinished;
+    private Player turn;
+    private Square[][] board;
 
     public Round() {
     }
 
-    public Round(Player Player1, Player Player2, Player winner, Game game, boolean isFinished) {
+    public Round(Player Player1, Player Player2, Player winner, Game game, boolean isFinished, Player turn) {
         this.player1 = Player1;
         this.player2 = Player2;
         this.Winner = winner;
         this.game = game;
         this.isFinished = isFinished;
+        this.turn = turn;
     }
-
 
     public int getIdRound() {
         return idRound;
@@ -74,6 +75,21 @@ public class Round {
         isFinished = finished;
     }
 
+    public Player getTurn() {
+        return turn;
+    }
+
+    public void setTurn(Player turn) {
+        this.turn = turn;
+    }
+
+    public Square[][] getBoard() {
+        return board;
+    }
+
+    public void setBoard(Square[][] board) {
+        this.board = board;
+    }
 
     public static Round insertRound(Round round) {
         round.setIdRound(rounds.size() + 1);

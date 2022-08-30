@@ -2,11 +2,12 @@ package com.dsu.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Square {
     private static List<Square> squares = new ArrayList<Square>();
 
-    private Round round;
+    private int idRound;
     private int column;
     private int row;
     private Piece piece;
@@ -14,19 +15,19 @@ public class Square {
     public Square() {
     }
 
-    public Square(Round round, int column, int row, Piece piece) {
-        this.round = round;
+    public Square(int idRound, int column, int row, Piece piece) {
+        this.idRound = idRound;
         this.column = column;
         this.row = row;
         this.piece = piece;
     }
 
-    public Round getRound() {
-        return round;
+    public int getIdRound() {
+        return idRound;
     }
 
-    public void setRound(Round round) {
-        this.round = round;
+    public void setIdRound(int idRound) {
+        this.idRound = idRound;
     }
 
     public int getColumn() {
@@ -62,7 +63,7 @@ public class Square {
     public static Square selectSquare(Round round, int column, int row) {
         String PK = String.valueOf(round.getIdRound() + column + row);
         for (Square square : squares) {
-            String foundPK = String.valueOf(square.getRound().getIdRound() + square.getColumn() + square.getRow());
+            String foundPK = String.valueOf(square.getIdRound() + square.getColumn() + square.getRow());
             if (PK.equals(foundPK)) {
                 return square;
             }
@@ -75,11 +76,11 @@ public class Square {
     }
 
     public static Square updateSquare(Square square) {
-        String PK = String.valueOf(square.getRound().getIdRound() + square.getColumn() + square.getRow());
+        String PK = String.valueOf(square.getIdRound() + square.getColumn() + square.getRow());
         for (Square foundSquare : squares) {
-            String foundPK = String.valueOf(foundSquare.getRound().getIdRound() + foundSquare.getColumn() + foundSquare.getRow());
+            String foundPK = String.valueOf(foundSquare.getIdRound() + foundSquare.getColumn() + foundSquare.getRow());
             if (PK.equals(foundPK)) {
-                foundSquare.setRound(square.getRound());
+                foundSquare.setIdRound(square.getIdRound());
                 foundSquare.setColumn(square.getColumn());
                 foundSquare.setRow(square.getRow());
                 foundSquare.setPiece(square.getPiece());
@@ -93,10 +94,23 @@ public class Square {
     public static void deleteSquare(int idRound, int column, int row) {
         String PK = String.valueOf(idRound + column + row);
         for (Square foundSquare : squares) {
-            String foundPK = String.valueOf(foundSquare.getRound().getIdRound() + foundSquare.getColumn() + foundSquare.getRow());
+            String foundPK = String.valueOf(foundSquare.getIdRound() + foundSquare.getColumn() + foundSquare.getRow());
             if (PK.equals(foundPK)) {
                 squares.remove(foundSquare);
             }
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Square that = (Square) o;
+        return idRound == that.idRound && column == that.column && row == that.row && piece.equals(that.piece);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idRound, column, row);
     }
 }
