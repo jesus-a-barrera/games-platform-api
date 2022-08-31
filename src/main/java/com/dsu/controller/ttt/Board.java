@@ -31,7 +31,7 @@ public class Board {
         return EmptySquare <= 0;
     }
 
-    public Piece getWinner(Square[][] squares) {
+    public static Piece getWinner(Square[][] squares) {
         if (!checkRows(squares).equals(Piece.selectPiece(3)))
             return checkRows(squares);
         if (!checkColumns(squares).equals(Piece.selectPiece(3)))
@@ -41,7 +41,7 @@ public class Board {
         return Piece.selectPiece(3);
     }
 
-    private Piece checkRows(Square[][] squares) {
+    private static Piece checkRows(Square[][] squares) {
         Piece piece = Piece.selectPiece(3);
         for (Square[] row : squares) {
             if (row[0].equals(row[1]) && row[0].equals(row[2])) {
@@ -52,7 +52,7 @@ public class Board {
         return piece;
     }
 
-    private Piece checkColumns(Square[][] squares) {
+    private static Piece checkColumns(Square[][] squares) {
         Piece piece = Piece.selectPiece(3);
         for (int i = 0; i < 3; i++) {
             if (squares[0][i].equals(squares[1][i]) && squares[0][i].equals(squares[2][i])) {
@@ -63,7 +63,7 @@ public class Board {
         return piece;
     }
 
-    private Piece checkDiagonals(Square[][] squares) {
+    private static Piece checkDiagonals(Square[][] squares) {
         Piece piece = Piece.selectPiece(3);
         if ((squares[0][0].equals(squares[1][1]) && squares[0][0].equals(squares[2][2]))
                 || squares[0][2].equals(squares[1][1]) && squares[0][2].equals(squares[2][0]))
