@@ -2,6 +2,7 @@ package com.dsu.model;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Player {
     private static List<Player> players = new ArrayList<>();
@@ -85,4 +86,18 @@ public class Player {
                 players.remove(foundPlayer);
         }
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player that = (Player) o;
+        return idPlayer == that.idPlayer && name.equals(that.getName());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idPlayer, name);
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.dsu.model;
 
+import java.util.Objects;
+
 public class TicTacToePlayer {
     private Player player;
     private Piece piece;
@@ -28,5 +30,16 @@ public class TicTacToePlayer {
         this.piece = piece;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TicTacToePlayer that = (TicTacToePlayer) o;
+        return player.equals(that.player) && piece.equals(that.piece);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(player, piece);
+    }
 }
