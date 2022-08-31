@@ -17,6 +17,8 @@ public class TicTacToeController {
         Round round = null;
         if (players.length == 2) {
             round = new Round();
+            players[0] = Player.selectPlayer(players[0].getIdPlayer());
+            players[1] = Player.selectPlayer(players[1].getIdPlayer());
             players = assignRoles(players);
             playerX = new TicTacToePlayer(players[0], Piece.selectPiece(1));
             playerO = new TicTacToePlayer(players[1], Piece.selectPiece(2));
