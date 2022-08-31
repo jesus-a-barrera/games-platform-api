@@ -9,22 +9,26 @@ import java.util.List;
 @RequestMapping("/api/players")
 public class ListOfPlayersController {
 
+    @CrossOrigin
     @PostMapping("/")
     public Player createPlayer(Player player) {
         Player.insertPlayer(player);
         return player;
     }
 
+    @CrossOrigin
     @GetMapping("/{idPlayer}")
     public Player getPlayer(@PathVariable int idPlayer) {
         return Player.selectPlayer(idPlayer);
     }
 
+    @CrossOrigin
     @GetMapping("/")
     public List<Player> getList() {
         return Player.selectPlayers();
     }
 
+    @CrossOrigin
     @DeleteMapping("/{idPlayer}")
     public void deletePlayer(@PathVariable int idPlayer) {
         Player.deletePlayer(idPlayer);

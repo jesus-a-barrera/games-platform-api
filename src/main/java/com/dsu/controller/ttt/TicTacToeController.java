@@ -12,6 +12,7 @@ public class TicTacToeController {
     private TicTacToePlayer playerX;
     private TicTacToePlayer playerO;
 
+    @CrossOrigin
     @PostMapping("/")
     public Round start(@RequestBody Player[] players) {
         Round round = null;
@@ -32,6 +33,7 @@ public class TicTacToeController {
         return round;
     }
 
+    @CrossOrigin
     @PostMapping("/{idRound}")
     public Round makeMove(@PathVariable int idRound, @RequestBody Movement movement) {
         Round round = Round.selectRound(idRound);
