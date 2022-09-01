@@ -1,4 +1,4 @@
-package com.dsu.controller.ttt;
+package com.dsu.model;
 
 public class Movement {
     private int idMovement;
