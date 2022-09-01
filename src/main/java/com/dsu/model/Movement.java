@@ -1,8 +1,7 @@
 package com.dsu.controller.ttt;
 
-import com.dsu.model.TicTacToePlayer;
-
 public class Movement {
+    private int idMovement;
     private TicTacToePlayer ticTacToePlayer;
     private Position position;
 
@@ -12,6 +11,14 @@ public class Movement {
     public Movement(TicTacToePlayer ticTacToePlayer, Position position) {
         this.ticTacToePlayer = ticTacToePlayer;
         this.position = position;
+    }
+
+    public int getIdMovement() {
+        return idMovement;
+    }
+
+    public void setIdMovement(int idMovement) {
+        this.idMovement = idMovement;
     }
 
     public TicTacToePlayer getTicTacToePlayer() {
