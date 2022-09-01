@@ -2,75 +2,79 @@ package com.dsu.controller.ttt;
 
 import com.dsu.model.*;
 import com.dsu.util.Dice;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/ttt")
 
 public class TicTacToeController {
+
     private TicTacToePlayer playerX;
     private TicTacToePlayer playerO;
 
+    @Autowired
+    private BoardService boardService;
+
     @CrossOrigin
     @PostMapping("/")
-    public Round start(@RequestBody Player[] players) {
+    public TicTacToeRound start(@RequestBody Player[] players) {
         Round round = null;
+        TicTacToeRound ticTacToeRound = null;
         if (players.length == 2) {
             round = new Round();
-            players[0] = Player.selectPlayer(players[0].getIdPlayer());
-            players[1] = Player.selectPlayer(players[1].getIdPlayer());
+            ticTacToeRound = new TicTacToeRound();
             players = assignRoles(players);
-            playerX = new TicTacToePlayer(players[0], Piece.selectPiece(1));
-            playerO = new TicTacToePlayer(players[1], Piece.selectPiece(2));
+            playerX = new TicTacToePlayer(Player.selectPlayer(players[0].getIdPlayer()), Piece.selectPiece(1));
+            playerO = new TicTacToePlayer(Player.selectPlayer(players[1].getIdPlayer()), Piece.selectPiece(2));
             round.setPlayer1(playerX.getPlayer());
             round.setPlayer2(playerO.getPlayer());
             round.setTurn(playerX.getPlayer());
             round.setGame(Game.selectGame(1));
             round = Round.insertRound(round);
-            round.setBoard(Board.initBoard(round.getIdRound(), new Square[3][3]));
+            ticTacToeRound.setRound(round);
+            TicTacToeRound.insertTicTacToeRound(ticTacToeRound);
+            boardService.setTicTacToeRound(ticTacToeRound);
+            ticTacToeRound.setBoard(boardService.initBoard(new Square[3][3]));
         }
-        return round;
+        return ticTacToeRound;
     }
 
     @CrossOrigin
     @PostMapping("/{idRound}")
-    public Round makeMove(@PathVariable int idRound, @RequestBody Movement movement) {
-        Round round = Round.selectRound(idRound);
-        if (isValidMovement(movement, round) && isCorrectTurn(movement, round) && !round.isFinished()) {
-            Position position = movement.getPosition();
-            Piece piece = movement.getTicTacToePlayer().getPiece();
-            Player player = movement.getTicTacToePlayer().getPlayer();
-            Square[][] board = round.getBoard();
-            if (Board.putPiece(position, piece, board)) {
-                if (Board.isFull() || Board.getWinner(board) != Piece.selectPiece(3)) {
+    public TicTacToeRound makeMove(@PathVariable int idRound, @RequestBody Movement movement) {
+        TicTacToeRound ticTacToeRound = TicTacToeRound.selectTicTacToeRound(idRound);
+        Round round = ticTacToeRound.getRound();
+        Position position = movement.getPosition();
+        Piece piece = movement.getTicTacToePlayer().getPiece();
+        Player player = movement.getTicTacToePlayer().getPlayer();
+        if (isValidMovement(movement, round) && isCorrectTurn(player, round) && !round.isFinished()) {
+            Square[][] board = ticTacToeRound.getBoard();
+            if (boardService.putPiece(position, piece, board)) {
+                if (boardService.isFull() || boardService.getWinner(board) != Piece.selectPiece(3)) {
                     round.setFinished(true);
-                    if (Board.getWinner(board) != Piece.selectPiece(3))
+                    if (boardService.getWinner(board) != Piece.selectPiece(3))
                         round.setWinner(player);
                 }
                 player = player.equals(playerX.getPlayer()) ? playerO.getPlayer() : playerX.getPlayer();
                 round.setTurn(player);
-                round.setBoard(board);
+                ticTacToeRound.setBoard(board);
+                ticTacToeRound.setRound(round);
             }
         }
-        return round;
+        return ticTacToeRound;
     }
 
     public boolean isValidMovement(Movement movement, Round round) {
         TicTacToePlayer ticTacToePlayer = movement.getTicTacToePlayer();
         Player player = ticTacToePlayer.getPlayer();
-        if ((ticTacToePlayer.equals(playerX) || ticTacToePlayer.equals(playerO))
-       && (player.equals(round.getPlayer1()) || player.equals(round.getPlayer2())))
-            return true;
-        return false;
+        return (ticTacToePlayer.equals(playerX) || ticTacToePlayer.equals(playerO))
+                && (player.equals(round.getPlayer1()) || player.equals(round.getPlayer2()));
     }
 
-    public boolean isCorrectTurn(Movement movement, Round round) {
-        Player player = movement.getTicTacToePlayer().getPlayer();
+    public boolean isCorrectTurn(Player player, Round round) {
         Player turn = round.getTurn();
-        if (player.equals(turn))
-            return true;
-        return false;
+        return player.equals(turn);
     }
 
     private Player[] assignRoles(Player[] gamePlayers) {
