@@ -8,17 +8,17 @@ public class Square {
     private static List<Square> squares = new ArrayList<Square>();
 
     private int idRound;
-    private int column;
     private int row;
+    private int column;
     private Piece piece;
 
     public Square() {
     }
 
-    public Square(int idRound, int column, int row, Piece piece) {
+    public Square(int idRound, int row, int column, Piece piece) {
         this.idRound = idRound;
-        this.column = column;
         this.row = row;
+        this.column = column;
         this.piece = piece;
     }
 
@@ -30,20 +30,20 @@ public class Square {
         this.idRound = idRound;
     }
 
-    public int getColumn() {
-        return column;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
-    }
-
     public int getRow() {
         return row;
     }
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
     }
 
     public Piece getPiece() {
@@ -106,11 +106,11 @@ public class Square {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Square that = (Square) o;
-        return idRound == that.idRound && column == that.column && row == that.row && piece.equals(that.piece);
+        return idRound == that.idRound && row == that.row && column == that.column && piece.equals(that.piece);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRound, column, row);
+        return Objects.hash(idRound, row, column);
     }
 }

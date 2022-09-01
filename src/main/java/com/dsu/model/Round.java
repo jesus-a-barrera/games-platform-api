@@ -10,21 +10,20 @@ public class Round {
     private Player player1;
     private Player player2;
     private Player Winner;
+    private Player turn;
     private Game game;
     private boolean isFinished;
-    private Player turn;
-    private Square[][] board;
 
     public Round() {
     }
 
-    public Round(Player Player1, Player Player2, Player winner, Game game, boolean isFinished, Player turn) {
+    public Round(Player Player1, Player Player2, Player winner, Player turn, Game game, boolean isFinished) {
         this.player1 = Player1;
         this.player2 = Player2;
         this.Winner = winner;
+        this.turn = turn;
         this.game = game;
         this.isFinished = isFinished;
-        this.turn = turn;
     }
 
     public int getIdRound() {
@@ -81,14 +80,6 @@ public class Round {
 
     public void setTurn(Player turn) {
         this.turn = turn;
-    }
-
-    public Square[][] getBoard() {
-        return board;
-    }
-
-    public void setBoard(Square[][] board) {
-        this.board = board;
     }
 
     public static Round insertRound(Round round) {
