@@ -15,6 +15,7 @@ public class HangManController {
     @Autowired
     private HangedManService hangedManService;
 
+    @CrossOrigin
     @PostMapping("/")
     public HangManRound start(@RequestBody Player[] players) {
         Round round = null;
@@ -36,6 +37,7 @@ public class HangManController {
         return hangManRound;
     }
 
+    @CrossOrigin
     @PostMapping("/{idRound}/secretWord/")
     public HangManRound giveWord(@PathVariable int idRound, @RequestBody Chose chose) {
         HangManRound hangManRound = HangManRound.selectHangManRound(idRound);
@@ -46,6 +48,7 @@ public class HangManController {
         return hangManRound;
     }
 
+    @CrossOrigin
     @PostMapping("/{idRound}/letter/")
     public HangManRound giveLetter(@PathVariable int idRound, @RequestBody Chose chose) {
         HangManRound hangManRound = HangManRound.selectHangManRound(idRound);
