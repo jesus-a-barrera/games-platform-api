@@ -15,6 +15,7 @@ public class BoardService {
                 board[i][j] = new Square(ticTacToeRound.getIdTicTacToeRound(), (i + 1), (j + 1), Piece.selectPiece(3));
             }
         }
+        availableSquares =9;
         return board;
     }
 
